@@ -8,8 +8,8 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 
-#define DEF 0
-#define LWR 1
+#define COL 0
+#define CON 1
 #define RSE 2
 #define ADJ 3
 
@@ -39,12 +39,20 @@
         keymap {
                 compatible = "zmk,keymap";
 
-                default_layer {
+                colemak_layer {
                         bindings = <
-          &mt LGUI RBKT     &kp Q         &kp W         &kp F         &kp P             &kp B         &kp J         &kp L            &kp U         &kp Y        &kp SQT       &kp LBKT       
-          &mt LCTRL GRAVE   &mt LGUI A    &mt LALT R    &mt LSHFT S   &mt LCTRL T       &kp G         &kp M         &mt RCTRL N      &mt RSHFT E   &mt RALT I   &mt RGUI O    &mt RCTRL SQT
-          &mt LALT MINUS    &kp Z         &kp X         &kp C         &kp D             &kp V         &kp K         &kp H            &kp COMMA     &kp DOT      &kp FSLH      &mt RALT BSLH
-                                            &mo ADJ   &lt RSE BSPC   &lt LWR RET   &lt LWR TAB   &lt RSE SPACE   &mo ADJ
+          &none     &kp Q         &kp W         &kp F         &kp P             &kp B         &kp J         &kp L            &kp U         &kp Y        &kp SQT       &none       
+          &none     &mt LGUI A    &mt LALT R    &mt LSHFT S   &mt LCTRL T       &kp G         &kp M         &mt RCTRL N      &mt RSHFT E   &mt RALT I   &mt RGUI O    &none
+          &none     &kp Z         &kp X         &kp C         &kp D             &kp V         &kp K         &kp H            &kp COMMA     &kp DOT      &kp FSLH      &none
+                                            &mo ADJ   &lt CON BSPC   &lt CON RET   &lt CON TAB   &lt RSE SPACE   &mo ADJ
+                        >;
+                };
+                colemak_nav_layer {
+                        bindings = <
+          &none     &kp ESC       &kp CAPS      &tog RSE      &tog RSE          &none         &kp PG_UP     &kp HOME         &kp UP        &kp END      &kp INS       &none
+          &none     &kp LGUI      &kp LALT      &kp LSHFT     &kp LCTRL         &none         &kp PG_DN     &kp LEFT         &kp DOWN      &kp RIGHT    &kp DEL       &none
+          &none     &none         &none         &none         &none             &none         &none         &none            &kp K_CMENU   &none        &none         &none
+                                            &none     &none          &none         &kp TAB       &kp SPACE       &none
                         >;
                 };
                 lower_layer {
