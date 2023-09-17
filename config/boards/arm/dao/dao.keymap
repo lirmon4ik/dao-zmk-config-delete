@@ -10,8 +10,11 @@
 
 #define COL 0
 #define CON 1
-#define RSE 2
-#define ADJ 3
+#define QWR 2
+#define QWN 3
+#define LWR 4
+#define RSE 5
+#define ADJ 6
 
 &lt { 
     flavor = "balanced";
@@ -49,7 +52,23 @@
                 };
                 colemak_nav_layer {
                         bindings = <
-          &none     &kp ESC       &kp CAPS      &tog RSE      &tog RSE          &none         &kp PG_UP     &kp HOME         &kp UP        &kp END      &kp INS       &none
+          &none     &kp ESC       &kp CAPS      &tog QWR      &tog QWR          &none         &kp PG_UP     &kp HOME         &kp UP        &kp END      &kp INS       &none
+          &none     &kp LGUI      &kp LALT      &kp LSHFT     &kp LCTRL         &none         &kp PG_DN     &kp LEFT         &kp DOWN      &kp RIGHT    &kp DEL       &none
+          &none     &none         &none         &none         &none             &none         &none         &none            &kp K_CMENU   &none        &none         &none
+                                            &none     &none          &none         &kp TAB       &kp SPACE       &none
+                        >;
+                };
+                qwerty_layer {
+                        bindings = <
+          &none     &kp Q         &kp W         &kp E         &kp R             &kp T         &kp Y         &kp U            &kp I         &kp O        &kp P         &none       
+          &none     &mt LGUI A    &mt LALT S    &mt LSHFT D   &mt LCTRL F       &kp G         &kp H         &mt RCTRL J      &mt RSHFT K   &mt RALT L   &mt RGUI SEMI &kp SQT
+          &none     &kp Z         &kp X         &kp C         &kp V             &kp B         &kp N         &kp M            &kp COMMA     &kp DOT      &kp FSLH      &none
+                                            &mo ADJ   &lt CON BSPC   &lt CON RET   &lt CON TAB   &lt RSE SPACE   &mo ADJ
+                        >;
+                };
+                qwerty_nav_layer {
+                        bindings = <
+          &none     &kp ESC       &kp CAPS      &tog QWR      &tog QWR          &none         &kp PG_UP     &kp HOME         &kp UP        &kp END      &kp INS       &none
           &none     &kp LGUI      &kp LALT      &kp LSHFT     &kp LCTRL         &none         &kp PG_DN     &kp LEFT         &kp DOWN      &kp RIGHT    &kp DEL       &none
           &none     &none         &none         &none         &none             &none         &none         &none            &kp K_CMENU   &none        &none         &none
                                             &none     &none          &none         &kp TAB       &kp SPACE       &none
