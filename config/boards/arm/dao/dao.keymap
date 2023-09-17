@@ -13,7 +13,7 @@
 #define QWR 2
 #define QWN 3
 #define NUM 4
-#define RSE 5
+#define FUN 5
 #define ADJ 6
 
 &lt { 
@@ -47,7 +47,7 @@
           &none     &kp Q         &kp W         &kp F         &kp P             &kp B         &kp J         &kp L            &kp U         &kp Y        &kp SQT       &none       
           &none     &mt LGUI A    &mt LALT R    &mt LSHFT S   &mt LCTRL T       &kp G         &kp M         &mt RCTRL N      &mt RSHFT E   &mt RALT I   &mt RGUI O    &none
           &none     &kp Z         &kp X         &kp C         &kp D             &kp V         &kp K         &kp H            &kp COMMA     &kp DOT      &kp FSLH      &none
-                                            &mo ADJ   &lt CON BSPC   &lt CON RET   &lt CON TAB   &lt NUM SPACE   &mo ADJ
+                                            &mo ADJ   &lt CON BSPC   &lt CON RET   &lt FUN TAB   &lt NUM SPACE   &mo ADJ
                         >;
                 };
                 colemak_nav_layer {
@@ -63,7 +63,7 @@
           &none     &kp Q         &kp W         &kp E         &kp R             &kp T         &kp Y         &kp U            &kp I         &kp O        &kp P         &none       
           &none     &mt LGUI A    &mt LALT S    &mt LSHFT D   &mt LCTRL F       &kp G         &kp H         &mt RCTRL J      &mt RSHFT K   &mt RALT L   &mt RGUI SEMI &kp SQT
           &none     &kp Z         &kp X         &kp C         &kp V             &kp B         &kp N         &kp M            &kp COMMA     &kp DOT      &kp FSLH      &none
-                                            &mo ADJ   &lt QWN BSPC   &lt CON RET   &lt QWN TAB   &lt NUM SPACE   &mo ADJ
+                                            &mo ADJ   &lt QWN BSPC   &lt CON RET   &lt FUN TAB   &lt NUM SPACE   &mo ADJ
                         >;
                 };
                 qwerty_nav_layer {
@@ -79,16 +79,16 @@
           &none     &kp LBKT      &kp N7        &kp N8        &kp N9            &kp RBKT      &none         &none             &none         &none      &kp ESC        &none           
           &none     &kp SEMI      &kp N4        &kp N5        &kp N6            &kp EQUAL     &none         &kp RCTRL         &kp RSHFT     &kp RALT   &kp RGUI       &none
           &none     &kp GRAVE     &kp N1        &kp N2        &kp N3            &kp BSLH      &none         &none             &none         &none      &none          &none
-                                            &none      &kp N0         &kp MINUS    &none         &none          &none
+                                            &none      &kp N0         &kp MINUS    &none         &none           &none
                         >;
                 };
 
-                raise_layer {
+                function_layer {
                         bindings = <
-          &mt LGUI KP_NUM   &kp KP_SLASH      &kp KP_N7   &kp KP_N8   &kp KP_N9   &kp KP_MINUS   &kp C_VOL_UP   &kp HOME   &kp PSCRN   &kp PG_UP   &kp SLCK          &kp CLCK   
-          &mt LCTRL EQUAL   &kp KP_MULTIPLY   &kp KP_N4   &kp KP_N5   &kp KP_N6   &kp KP_PLUS    &kp C_MUTE     &kp LEFT   &kp UP      &kp RIGHT   &kp INS           &mt RCTRL  K_APP
-          &kp LALT          &kp KP_N0         &kp KP_N1   &kp KP_N2   &kp KP_N3   &kp KP_DOT     &kp C_VOL_DN   &kp END    &kp DOWN    &kp PG_DN   &kp PAUSE_BREAK   &kp RALT
-                                                          &trans      &trans      &lt ADJ RET    &lt ADJ ESC    &trans     &trans
+          &none     &kp F12       &kp F7        &kp F8        &kp F9            &kp PSCRN       &none       &none             &none         &none       &kp ESC        &none   
+          &none     &kp F11       &kp F4        &kp F5        &kp F6            &kp SLCK        &none       &kp RCTRL         &kp RSHFT     &kp RALT    &kp RGUI       &none
+          &none     &kp F10       &kp F1        &kp F2        &kp F3            &kp PAUSE_BREAK &none       &none             &none         &none       &none          &none
+                                            &none      &kp SPACE      &kp TAB      &none         &none           &none
                         >;
                 };
                 adjust_layer {
