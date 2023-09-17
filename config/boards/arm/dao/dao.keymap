@@ -13,8 +13,16 @@
 #define RSE 2
 #define ADJ 3
 
-&lt { quick_tap_ms = <200>; };
-&mt { quick_tap_ms = <200>; };
+&lt { 
+    flavor = "balanced";
+    tapping-term-ms = <200>;
+    quick-tap-ms = <200>; 
+};
+&mt { 
+    flavor = "balanced";
+    tapping-term-ms = <200>;
+    quick-tap-ms = <200>; 
+};
 
 / {
     chosen {
@@ -25,24 +33,7 @@
 
 / {
         behaviors {
-            bhm: balanced_homerow_mods {
-                compatible = "zmk,behavior-hold-tap";
-                label = "HOMEROW_MODS";
-                #binding-cells = <2>;
-                tapping-term-ms = <200>;
-                quick-tap-ms = <0>;
-                flavor = "balanced";
-                bindings = <&kp>, <&kp>;
-            };
-            blt: balanced_layer_tap {
-                compatible = "zmk,behavior-hold-tap";
-                label = "BALANCED_LAYER_TAP";
-                #binding-cells = <2>;
-                tapping-term-ms = <200>;
-                quick-tap-ms = <0>;
-                flavor = "balanced";
-                bindings = <&mo>, <&kp>;
-            };
+
         };
 
         keymap {
@@ -51,9 +42,9 @@
                 default_layer {
                         bindings = <
           &mt LGUI RBKT     &kp Q         &kp W         &kp F         &kp P             &kp B         &kp J         &kp L            &kp U         &kp Y        &kp SQT       &kp LBKT       
-          &mt LCTRL GRAVE   &bhm LGUI A   &bhm LALT R   &bhm LSHFT S  &bhm LCTRL T      &kp G         &kp M         &bhm RCTRL N     &bhm RSHFT E  &bhm RALT I  &bhm RGUI O   &mt RCTRL SQT
+          &mt LCTRL GRAVE   &mt LGUI A    &mt LALT R    &mt LSHFT S   &mt LCTRL T       &kp G         &kp M         &mt RCTRL N      &mt RSHFT E   &mt RALT I   &mt RGUI O    &mt RCTRL SQT
           &mt LALT MINUS    &kp Z         &kp X         &kp C         &kp D             &kp V         &kp K         &kp H            &kp COMMA     &kp DOT      &kp FSLH      &mt RALT BSLH
-                                            &mo ADJ   &blt RSE BSPC   &blt LWR RET   &blt LWR TAB   &blt RSE SPACE   &mo ADJ
+                                            &mo ADJ   &lt RSE BSPC   &lt LWR RET   &lt LWR TAB   &lt RSE SPACE   &mo ADJ
                         >;
                 };
                 lower_layer {
