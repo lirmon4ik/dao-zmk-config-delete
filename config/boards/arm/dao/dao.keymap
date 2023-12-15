@@ -33,6 +33,13 @@
 };
 
 / {
+    chosen {
+        zmk,matrix_transform = &default_transform;
+        // zmk,matrix_transform = &extra_keys_transform;
+    };
+};
+
+/ {
         behaviors {
             dsoft: diktor_soft {
                 compatible = "zmk,behavior-mod-morph";
