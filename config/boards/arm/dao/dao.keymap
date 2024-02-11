@@ -41,6 +41,20 @@
 
 / {
         behaviors {
+            collp: colemak_lpar {
+                compatible = "zmk,behavior-mod-morph";
+                label = "COLEMAK_LEFT_PARENTHESIS";
+                #binding-cells = <0>;
+                bindings = <&kp LPAR>, <&kp SEMI>;
+                mods = <(MOD_RSFT)>;
+            };
+            colrp: colemak_rpar {
+                compatible = "zmk,behavior-mod-morph";
+                label = "COLEMAK_RIGHT_PARENTHESIS";
+                #binding-cells = <0>;
+                bindings = <&kp RPAR>, <&kp COLON>;
+                mods = <(MOD_LSFT)>;
+            };
             dsoft: diktor_soft {
                 compatible = "zmk,behavior-mod-morph";
                 label = "DIKTOR_SOFT_HARD_SIGN";
@@ -197,15 +211,15 @@
                 english_layer {
 // ╭───────┬───────┬───────┬───────┬───────┬───────╮     ╭───────┬───────┬───────┬───────┬───────┬───────╮
 // |   [   |   Q   |   W   |   F   |   P   |   B   |     |   J   |   L   |   U   |   Y   |   "   |   ]   |
-// |   `   |   A   |   R   |   S   |   T   |   G   |     |   M   |   N   |   E   |   I   |   O   |       |
-// |       |   Z   |   X   |   C   |   D   |   V   |     |   K   |   H   |   ,   |   .   |   /   |   \   |
+// |  (/;  |   A   |   R   |   S   |   T   |   G   |     |   M   |   N   |   E   |   I   |   O   |  )/:  |
+// |   `   |   Z   |   X   |   C   |   D   |   V   |     |   K   |   H   |   ,   |   .   |   /   |   \   |
 // ╰───────┴───────┴───────┼───────┼───────┼───────┤     ├───────┼───────┼───────┼───────────────────────╯
 //                         |  MED  |  BKSP |  RET  |     |  TAB  | SPACE |  MED  |
 //                         ╰───────┴───────┴───────╯     ╰───────┴───────┴───────╯
                         bindings = <
           &kp LBKT  &kp Q         &kp W         &kp F         &kp P             &kp B         &kp J         &kp L            &kp U         &kp Y        &kp SQT       &kp RBKT       
-          &kp GRAVE &mt LGUI A    &mt LALT R    &mt LSHFT S   &mt LCTRL T       &kp G         &kp M         &mt RCTRL N      &mt RSHFT E   &mt RALT I   &mt RGUI O    &none
-          &none     &kp Z         &kp X         &kp C         &kp D             &kp V         &kp K         &kp H            &kp COMMA     &kp DOT      &kp FSLH      &kp BSLH
+          &collp    &mt LGUI A    &mt LALT R    &mt LSHFT S   &mt LCTRL T       &kp G         &kp M         &mt RCTRL N      &mt RSHFT E   &mt RALT I   &mt RGUI O    &colrp
+          &kp GRAVE &kp Z         &kp X         &kp C         &kp D             &kp V         &kp K         &kp H            &kp COMMA     &kp DOT      &kp FSLH      &kp BSLH
                                             &mo MED   &lt ENN BSPC   &lt MOS RET   &lt FUN TAB   &lt NUM SPACE   &mo MED
                         >;
                 };
