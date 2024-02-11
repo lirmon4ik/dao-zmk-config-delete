@@ -109,6 +109,24 @@
                     <&macro_pause_for_release>;
             )
         };
+        
+        combos {
+            compatible = "zmk,combos";
+            combo_rus {
+                timeout-ms = <50>;
+                key-positions = <38 39>;
+                layers = <ENG>;
+                bindings = <&to_russian>;
+                require-prior-idle-ms = <300>;
+            };
+            combo_eng {
+                timeout-ms = <50>;
+                key-positions = <38 39>;
+                layers = <RUS>;
+                bindings = <&to_english>;
+                require-prior-idle-ms = <300>;
+            };
+        };
 
         keymap {
                 compatible = "zmk,keymap";
