@@ -70,6 +70,7 @@
                 bindings = <&kp SLASH>, <&kp EXCL>;
                 mods = <(MOD_RSFT)>;
             };
+            // Ctrl-<И> to Ctrl-R
             dikb: diktor_b {
                 compatible = "zmk,behavior-mod-morph";
                 label = "DIKTOR_COL_MODS_FOR_B";
@@ -85,6 +86,68 @@
                 bindings = <&kp>, <&dikb>;
                 flavor = "balanced";
                 tapping-term-ms = <200>;
+            };
+            // Ctrl-<Е> to Ctrl-S
+            dikt: diktor_t {
+                compatible = "zmk,behavior-mod-morph";
+                label = "DIKTOR_COL_MODS_FOR_T";
+                #binding-cells = <0>;
+                bindings = <&kp T>, <&kp S>;
+                mods = <(MOD_RCTL)>;
+                keep-mods = <(MOD_RCTL)>;
+            };
+            mtdt: mod_tap_dikt {
+                compatible = "zmk,behavior-hold-tap";
+                label = "MOD_TAP_DIKTOR_T";
+                #binding-cells = <2>;
+                bindings = <&kp>, <&dikt>;
+                flavor = "balanced";
+                tapping-term-ms = <200>;
+            };
+            // Ctrl-<Э> to Ctrl-X
+            dikapos: diktor_apos {
+                compatible = "zmk,behavior-mod-morph";
+                label = "DIKTOR_COL_MODS_FOR_APOS";
+                #binding-cells = <0>;
+                bindings = <&kp APOS>, <&kp X>;
+                mods = <(MOD_RCTL)>;
+                keep-mods = <(MOD_RCTL)>;
+            };
+            // Ctrl-<Х> to Ctrl-C
+            diklbkt: diktor_lbkt {
+                compatible = "zmk,behavior-mod-morph";
+                label = "DIKTOR_COL_MODS_FOR_LBKT";
+                #binding-cells = <0>;
+                bindings = <&kp LBKT>, <&kp C>;
+                mods = <(MOD_RCTL)>;
+                keep-mods = <(MOD_RCTL)>;
+            };
+            // Ctrl-<Ю> to Ctrl-V
+            dikdot: diktor_dot_oo {
+                compatible = "zmk,behavior-mod-morph";
+                label = "DIKTOR_COL_MODS_FOR_DOT";
+                #binding-cells = <0>;
+                bindings = <&kp DOT>, <&kp V>;
+                mods = <(MOD_RCTL)>;
+                keep-mods = <(MOD_RCTL)>;
+            };
+            // Ctrl-<Ф> to Ctrl-Z
+            dika: diktor_a {
+                compatible = "zmk,behavior-mod-morph";
+                label = "DIKTOR_COL_MODS_FOR_A";
+                #binding-cells = <0>;
+                bindings = <&kp A>, <&kp Z>;
+                mods = <(MOD_RCTL)>;
+                keep-mods = <(MOD_RCTL)>;
+            };
+            // (Alt|Ctrl)-<Я> to (Alt|Ctrl)-F
+            dikz: diktor_z {
+                compatible = "zmk,behavior-mod-morph";
+                label = "DIKTOR_COL_MODS_FOR_Z";
+                #binding-cells = <0>;
+                bindings = <&kp Z>, <&kp F>;
+                mods = <(MOD_RALT|MOD_RCTL)>;
+                keep-mods = <(MOD_RALT|MOD_RCTL)>;
             };
         };
 
@@ -170,9 +233,9 @@
 //                         |  MED  |  BKSP |  RET  |     |  TAB  | SPACE |  MED  |
 //                         ╰───────┴───────┴───────╯     ╰───────┴───────┴───────╯
                         bindings = <
-          &kp GRAVE &kp W         &dsoft        &kp Z         &dcomma           &ddot         &kp P         &kp D            &kp R         &kp L        &kp X         &kp I       
-          &dbsoft   &mt LGUI E    &mtdb LALT B  &mt LSHFT T   &mt LCTRL J       &kp F         &kp K         &mt RCTRL Y      &mt RSHFT N   &mt RALT C   &mt RGUI H    &kp Q
-          &kp BSLH  &kp A         &kp APOS      &kp LBKT      &kp S             &kp DOT       &kp COMMA     &kp V            &kp G         &kp U        &kp SEMI      &kp O
+          &kp GRAVE &kp W         &dsoft        &dikz         &dcomma           &ddot         &kp P         &kp D            &kp R         &kp L        &kp X         &kp I       
+          &dbsoft   &mt LGUI E    &mtdb LALT B  &mtdt LSHFT T &mt LCTRL J       &kp F         &kp K         &mt RCTRL Y      &mt RSHFT N   &mt RALT C   &mt RGUI H    &kp Q
+          &kp BSLH  &dika         &dikapos      &diklbkt      &kp S             &dikdot       &kp COMMA     &kp V            &kp G         &kp U        &kp SEMI      &kp O
                                             &mo MED   &lt RUN BSPC   &lt MOS RET   &lt FUN TAB   &lt NUM SPACE   &mo MED
                         >;
                 };
