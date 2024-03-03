@@ -25,6 +25,7 @@
 
 #define U_TAPPING_TERM 200
 #define U_QUICK_TAP 0
+#define U_STREAK_DECAY 125
 
 #define LEFT_HAND_KEYS   \
      0  1  2  3  4  5    \
@@ -75,10 +76,31 @@
 
 / {
         behaviors {
+            lsht: left_shift_tap {
+                compatible = "zmk,behavior-hold-tap";
+                flavor = "balanced";
+                hold-trigger-key-positions = <RIGHT_HAND_KEYS RIGHT_THUMB_KEYS>;
+                hold-trigger-on-release; // for combining HRMs
+                tapping-term-ms = <U_TAPPING_TERM>;
+                quick-tap-ms = <U_QUICK_TAP>;
+                #binding-cells = <2>;
+                bindings = <&kp>, <&kp>;
+            };
             lmt: left_mod_tap {
                 compatible = "zmk,behavior-hold-tap";
                 flavor = "balanced";
                 hold-trigger-key-positions = <RIGHT_HAND_KEYS RIGHT_THUMB_KEYS>;
+                hold-trigger-on-release; // for combining HRMs
+                tapping-term-ms = <U_TAPPING_TERM>;
+                quick-tap-ms = <U_QUICK_TAP>;
+                require-prior-idle-ms = <U_STREAK_DECAY>;
+                #binding-cells = <2>;
+                bindings = <&kp>, <&kp>;
+            };
+            rsht: right_shift_tap {
+                compatible = "zmk,behavior-hold-tap";
+                flavor = "balanced";
+                hold-trigger-key-positions = <LEFT_HAND_KEYS LEFT_THUMB_KEYS>;
                 hold-trigger-on-release; // for combining HRMs
                 tapping-term-ms = <U_TAPPING_TERM>;
                 quick-tap-ms = <U_QUICK_TAP>;
@@ -92,6 +114,7 @@
                 hold-trigger-on-release; // for combining HRMs
                 tapping-term-ms = <U_TAPPING_TERM>;
                 quick-tap-ms = <U_QUICK_TAP>;
+                require-prior-idle-ms = <U_STREAK_DECAY>;
                 #binding-cells = <2>;
                 bindings = <&kp>, <&kp>;
             };
@@ -155,6 +178,7 @@
                 hold-trigger-on-release; // for combining HRMs
                 tapping-term-ms = <U_TAPPING_TERM>;
                 quick-tap-ms = <U_QUICK_TAP>;
+                require-prior-idle-ms = <U_STREAK_DECAY>;
                 #binding-cells = <2>;
                 bindings = <&kp>, <&dikb>;
             };
@@ -269,7 +293,7 @@
 //                         ╰───────┴───────┴───────╯     ╰───────┴───────┴───────╯
                         bindings = <
           &kp LBKT  &kp Q         &kp W         &kp F         &kp P             &kp B         &kp J         &kp L            &kp U         &kp Y        &kp SQT       &kp RBKT       
-          &collp    &lmt LGUI A   &lmt LALT R   &lmt LSHFT S  &lmt LCTRL T      &kp G         &kp M         &rmt RCTRL N     &rmt RSHFT E  &rmt RALT I  &rmt RGUI O   &colrp
+          &collp    &lmt LGUI A   &lmt LALT R   &lsht LSHFT S &lmt LCTRL T      &kp G         &kp M         &rmt RCTRL N     &rsht RSHFT E &rmt RALT I  &rmt RGUI O   &colrp
           &kp GRAVE &kp Z         &kp X         &kp C         &kp D             &kp V         &kp K         &kp H            &kp COMMA     &kp DOT      &kp FSLH      &kp BSLH
                                             &mo MED   &lt ENN BSPC   &lt MOS RET   &lt FUN TAB   &lt NUM SPACE   &mo MED
                         >;
@@ -299,7 +323,7 @@
 //                         ╰───────┴───────┴───────╯     ╰───────┴───────┴───────╯
                         bindings = <
           &kp GRAVE &kp W         &dsoft        &dikz         &dcomma           &ddot         &kp P         &kp D            &kp R         &kp L        &kp X         &kp I       
-          &dbsoft   &lmt LGUI E   &mtdb LALT B  &mtdt LSHFT T &lmt LCTRL J      &kp F         &kp K         &rmt RCTRL Y     &rmt RSHFT N  &rmt RALT C  &rmt RGUI H   &kp Q
+          &dbsoft   &lmt LGUI E   &mtdb LALT B  &mtdt LSHFT T &lmt LCTRL J      &kp F         &kp K         &rmt RCTRL Y     &rsht RSHFT N &rmt RALT C  &rmt RGUI H   &kp Q
           &kp BSLH  &dika         &dikapos      &diklbkt      &kp S             &dikdot       &kp COMMA     &kp V            &kp G         &kp U        &kp SEMI      &kp O
                                             &mo MED   &lt RUN BSPC   &lt MOS RET   &lt FUN TAB   &lt NUM SPACE   &mo MED
                         >;
