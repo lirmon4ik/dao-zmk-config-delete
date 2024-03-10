@@ -16,12 +16,16 @@
 
 #define ENG 0
 #define ENN 1
-#define RUS 2
-#define RUN 3
-#define NUM 4
-#define FUN 5
-#define MED 6
-#define MOS 7
+#define NUE 2
+#define RUS 3
+#define RUN 4
+#define NUR 5
+#define FUN 6
+#define MED 7
+#define MOS 8
+
+#define U_TO_RUS_SCUT LC(LA(N2))
+#define U_TO_ENG_SCUT LC(LA(N1))
 
 #define U_TAPPING_TERM 200
 #define U_QUICK_TAP 0
@@ -263,19 +267,88 @@
                 bindings = <&kp DOT>, <&kp COMMA>;
                 mods = <(MOD_RSFT)>;
             };
+            // Russian Numeric . or ,
+            rnumdorc: russian_numeric_dot_or_comma {
+                compatible = "zmk,behavior-mod-morph";
+                label = "RUS_NUMERIC_DOT_OR_COMMA";
+                #binding-cells = <0>;
+                bindings = <&kp SLASH>, <&kp QMARK>;
+                mods = <(MOD_RSFT)>;
+            };
+            rnumscol: russian_numeric_semicolon {
+                compatible = "zmk,behavior-mod-morph";
+                label = "RUS_NUMERIC_SEMICOLON";
+                #binding-cells = <0>;
+                bindings = <&kp DOLLAR>, <&kp CARET>;
+                mods = <(MOD_RSFT)>;
+            };
+            rnumlbr: russian_numeric_left_brace {
+                compatible = "zmk,behavior-mod-morph";
+                label = "RUS_NUMERIC_LEFT_BRACE";
+                #binding-cells = <0>;
+                bindings = <&engkp LEFT_BRACKET>, <&engkp LEFT_BRACE>;
+                mods = <(MOD_RSFT)>;
+            };
+            rnumrbr: russian_numeric_right_brace {
+                compatible = "zmk,behavior-mod-morph";
+                label = "RUS_NUMERIC_RIGHT_BRACE";
+                #binding-cells = <0>;
+                bindings = <&engkp RIGHT_BRACKET>, <&engkp RIGHT_BRACE>;
+                mods = <(MOD_RSFT)>;
+            };
+            rnumdllr: russian_numeric_dollar {
+                compatible = "zmk,behavior-mod-morph";
+                label = "RUS_NUMERIC_RIGHT_DOLLAR";
+                #binding-cells = <0>;
+                bindings = <&engkp DOLLAR>, <&engkp HASH>;
+                mods = <(MOD_RSFT)>;
+            };
+            rnumabr: russian_numeric_angle_brackets {
+                compatible = "zmk,behavior-mod-morph";
+                label = "RUS_NUMERIC_ANGLE_BRACKETS";
+                #binding-cells = <0>;
+                bindings = <&engkp LESS_THAN>, <&engkp GREATER_THAN>;
+                mods = <(MOD_RSFT)>;
+            };
+            rnumat: russian_numeric_at {
+                compatible = "zmk,behavior-mod-morph";
+                label = "RUS_NUMERIC_AT_SIGN";
+                #binding-cells = <0>;
+                bindings = <&engkp AT_SIGN>, <&engkp CARET>;
+                mods = <(MOD_RSFT)>;
+            };
+            rnumamp: russian_numeric_ampersand {
+                compatible = "zmk,behavior-mod-morph";
+                label = "RUS_NUMERIC_AMPERSAND";
+                #binding-cells = <0>;
+                bindings = <&engkp AMPERSAND>, <&engkp TILDE>;
+                mods = <(MOD_RSFT)>;
+            };
         };
 
         macros {
             ZMK_MACRO(to_russian,
                 wait-ms = <20>;
                 tap-ms = <20>;
-                bindings = <&macro_tap &kp LC(LA(N2))>, <&macro_tap &tog RUS>;
+                bindings = <&macro_tap &kp U_TO_RUS_SCUT>, <&macro_tap &tog RUS>;
             )
             ZMK_MACRO(to_english,
                 wait-ms = <20>;
                 tap-ms = <20>;
-                bindings = <&macro_tap &kp LC(LA(N1))>, <&macro_tap &tog RUS>;
+                bindings = <&macro_tap &kp U_TO_ENG_SCUT>, <&macro_tap &tog RUS>;
             )
+            engkp: english_kp {
+                compatible = "zmk,behavior-macro-one-param";
+                wait-ms = <20>;
+                tap-ms = <20>;
+                #binding-cells = <1>;
+                bindings 
+                    = <&macro_tap &kp U_TO_ENG_SCUT>
+                    , <&macro_param_1to1>
+                    , <&macro_tap &kp MACRO_PLACEHOLDER>
+                    , <&macro_tap &kp U_TO_RUS_SCUT>
+                    ;
+            };
         };
         
         combos {
@@ -311,7 +384,7 @@
           &kp LBKT  &kp Q         &kp W         &kp F         &kp P             &kp B         &kp J         &kp L            &kp U         &kp Y        &kp SQT       &kp RBKT       
           &collp    &lmt LGUI A   &lmt LALT R   &lsht LSHFT S &lmt LCTRL T      &kp G         &kp M         &rmt RCTRL N     &rsht RSHFT E &rmt RALT I  &rmt RGUI O   &colrp
           &kp GRAVE &kp Z         &kp X         &kp C         &kp D             &kp V         &kp K         &kp H            &kp COMMA     &kp DOT      &kp FSLH      &kp BSLH
-                                            &mo MED   &lt ENN BSPC   &lt MOS RET   &lt FUN TAB   &lt NUM SPACE   &mo MED
+                                            &mo MED   &lt ENN BSPC   &lt MOS RET   &lt FUN TAB   &lt NUE SPACE   &mo MED
                         >;
                 };
                 english_nav_layer {
@@ -329,6 +402,21 @@
                                             &none     &none          &none         &kp TAB       &kp SPACE       &none
                         >;
                 };
+                english_number_layer {
+// ╭───────┬───────┬───────┬───────┬───────┬───────╮     ╭───────┬───────┬───────┬───────┬───────┬───────╮
+// |       |   [   |   7   |   8   |   9   |   ]   |     |       |       |       |       |  ESC  |       |
+// |       |   ;   |   4   |   5   |   6   |   =   |     |  BKSP | RCTRL | RSHFT |  RALT |  RGUI |       |
+// |       |   `   |   1   |   2   |   3   |   \   |     |       |       |       |       |       |       |
+// ╰───────┴───────┴───────┼───────┼───────┼───────┤     ├───────┼───────┼───────┼───────────────────────╯
+//                         |  ./,  |   0   |   -   |     |       |       |       |
+//                         ╰───────┴───────┴───────╯     ╰───────┴───────┴───────╯
+                        bindings = <
+          &none     &kp LBKT      &kp N7        &kp N8        &kp N9            &kp RBKT      &none         &none             &none         &none      &kp ESC        &none           
+          &none     &kp SEMI      &kp N4        &kp N5        &kp N6            &kp EQUAL     &kp BSPC      &kp RCTRL         &kp RSHFT     &kp RALT   &kp RGUI       &none
+          &none     &kp GRAVE     &kp N1        &kp N2        &kp N3            &kp BSLH      &none         &none             &none         &none      &none          &none
+                                            &numdorc  &kp N0         &kp MINUS    &none         &none           &none
+                        >;
+                };
                 russian_layer {
 // ╭───────┬───────┬───────┬───────┬───────┬───────╮     ╭───────┬───────┬───────┬───────┬───────┬───────╮
 // |   Ё   |   Ц   |  ь/ъ  |   Я   |  ,/?  |  ./!  |     |   З   |   В   |   К   |   Д   |   Ч   |   Ш   |
@@ -341,7 +429,7 @@
           &kp GRAVE &kp W         &dsoft        &dikz         &dcomma           &ddot         &kp P         &kp D            &kp R         &kp L        &kp X         &kp I       
           &dbsoft   &lmt LGUI E   &mtdb LALT B  &mtdt LSHFT T &lmt LCTRL J      &kp F         &kp K         &rmt RCTRL Y     &rsht RSHFT N &rmt RALT C  &rmt RGUI H   &kp Q
           &kp BSLH  &dika         &dikapos      &diklbkt      &kp S             &dikdot       &kp COMMA     &kp V            &kp G         &kp U        &kp SEMI      &kp O
-                                            &mo MED   &lt RUN BSPC   &lt MOS RET   &lt FUN TAB   &lt NUM SPACE   &mo MED
+                                            &mo MED   &lt RUN BSPC   &lt MOS RET   &lt FUN TAB   &lt NUR SPACE   &mo MED
                         >;
                 };
                 russian_nav_layer {
@@ -359,19 +447,19 @@
                                             &none     &none          &none         &kp TAB       &kp SPACE       &none
                         >;
                 };
-                number_layer {
+                russian_number_layer {
 // ╭───────┬───────┬───────┬───────┬───────┬───────╮     ╭───────┬───────┬───────┬───────┬───────┬───────╮
-// |       |   [   |   7   |   8   |   9   |   ]   |     |       |       |       |       |  ESC  |       |
-// |       |   ;   |   4   |   5   |   6   |   =   |     |  BKSP | RCTRL | RSHFT |  RALT |  RGUI |       |
-// |       |   `   |   1   |   2   |   3   |   \   |     |       |       |       |       |       |       |
+// |  </>  |  [/{  |   7   |   8   |   9   |  ]/}  |     |       |       |       |       |  ESC  |       |
+// |  @/^  |  ;/:  |   4   |   5   |   6   |   =   |     |  BKSP | RCTRL | RSHFT |  RALT |  RGUI |       |
+// |  &/~  |  $/#  |   1   |   2   |   3   |   \   |     |       |       |       |       |       |       |
 // ╰───────┴───────┴───────┼───────┼───────┼───────┤     ├───────┼───────┼───────┼───────────────────────╯
 //                         |  ./,  |   0   |   -   |     |       |       |       |
 //                         ╰───────┴───────┴───────╯     ╰───────┴───────┴───────╯
                         bindings = <
-          &none     &kp LBKT      &kp N7        &kp N8        &kp N9            &kp RBKT      &none         &none             &none         &none      &kp ESC        &none           
-          &none     &kp SEMI      &kp N4        &kp N5        &kp N6            &kp EQUAL     &kp BSPC      &kp RCTRL         &kp RSHFT     &kp RALT   &kp RGUI       &none
-          &none     &kp GRAVE     &kp N1        &kp N2        &kp N3            &kp BSLH      &none         &none             &none         &none      &none          &none
-                                            &numdorc  &kp N0         &kp MINUS    &none         &none           &none
+          &rnumabr  &rnumlbr      &kp N7        &kp N8        &kp N9            &rnumrbr      &none         &none             &none         &none      &kp ESC        &none           
+          &rnumat   &rnumscol     &kp N4        &kp N5        &kp N6            &kp EQUAL     &kp BSPC      &kp RCTRL         &kp RSHFT     &kp RALT   &kp RGUI       &none
+          &rnumamp  &rnumdllr     &kp N1        &kp N2        &kp N3            &kp BSLH      &none         &none             &none         &none      &none          &none
+                                            &rnumdorc &kp N0         &kp MINUS    &none         &none           &none
                         >;
                 };
 
