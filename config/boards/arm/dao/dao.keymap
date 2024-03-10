@@ -296,13 +296,6 @@
                 bindings = <&engkp RIGHT_BRACKET>, <&engkp RIGHT_BRACE>;
                 mods = <(MOD_RSFT)>;
             };
-            rnumdllr: russian_numeric_dollar {
-                compatible = "zmk,behavior-mod-morph";
-                label = "RUS_NUMERIC_RIGHT_DOLLAR";
-                #binding-cells = <0>;
-                bindings = <&engkp DOLLAR>, <&engkp HASH>;
-                mods = <(MOD_RSFT)>;
-            };
             rnumabr: russian_numeric_angle_brackets {
                 compatible = "zmk,behavior-mod-morph";
                 label = "RUS_NUMERIC_ANGLE_BRACKETS";
@@ -314,14 +307,42 @@
                 compatible = "zmk,behavior-mod-morph";
                 label = "RUS_NUMERIC_AT_SIGN";
                 #binding-cells = <0>;
-                bindings = <&engkp AT_SIGN>, <&engkp CARET>;
+                bindings = <&engkp AT_SIGN>, <&engkp HASH>;
                 mods = <(MOD_RSFT)>;
             };
-            rnumamp: russian_numeric_ampersand {
+            rnumgrv: russian_numeric_grave {
                 compatible = "zmk,behavior-mod-morph";
-                label = "RUS_NUMERIC_AMPERSAND";
+                label = "RUS_NUMERIC_GRAVE";
                 #binding-cells = <0>;
-                bindings = <&engkp AMPERSAND>, <&engkp TILDE>;
+                bindings = <&engkp GRAVE>, <&engkp TILDE>;
+                mods = <(MOD_RSFT)>;
+            };
+            rnum1: russian_numeric_1 {
+                compatible = "zmk,behavior-mod-morph";
+                label = "RUS_NUMERIC_1";
+                #binding-cells = <0>;
+                bindings = <&kp N1>, <&engkp SINGLE_QUOTE>;
+                mods = <(MOD_RSFT)>;
+            };
+            rnum4: russian_numeric_4 {
+                compatible = "zmk,behavior-mod-morph";
+                label = "RUS_NUMERIC_4";
+                #binding-cells = <0>;
+                bindings = <&kp N4>, <&engkp DOLLAR>;
+                mods = <(MOD_RSFT)>;
+            };
+            rnum6: russian_numeric_6 {
+                compatible = "zmk,behavior-mod-morph";
+                label = "RUS_NUMERIC_6";
+                #binding-cells = <0>;
+                bindings = <&kp N6>, <&engkp CARET>;
+                mods = <(MOD_RSFT)>;
+            };
+            rnum7: russian_numeric_7 {
+                compatible = "zmk,behavior-mod-morph";
+                label = "RUS_NUMERIC_7";
+                #binding-cells = <0>;
+                bindings = <&kp N7>, <&engkp AMPERSAND>;
                 mods = <(MOD_RSFT)>;
             };
         };
@@ -449,16 +470,16 @@
                 };
                 russian_number_layer {
 // ╭───────┬───────┬───────┬───────┬───────┬───────╮     ╭───────┬───────┬───────┬───────┬───────┬───────╮
-// |  </>  |  [/{  |   7   |   8   |   9   |  ]/}  |     |       |       |       |       |  ESC  |       |
-// |  @/^  |  ;/:  |   4   |   5   |   6   |   =   |     |  BKSP | RCTRL | RSHFT |  RALT |  RGUI |       |
-// |  &/~  |  $/#  |   1   |   2   |   3   |   \   |     |       |       |       |       |       |       |
+// |  </>  |  [/{  |  7/&  |   8   |   9   |  ]/}  |     |       |       |       |       |  ESC  |       |
+// |  @/#  |  ;/:  |  4/$  |   5   |  6/^  |   =   |     |  BKSP | RCTRL | RSHFT |  RALT |  RGUI |       |
+// |       |  `/~  |  1/'  |   2   |   3   |   \   |     |       |       |       |       |       |       |
 // ╰───────┴───────┴───────┼───────┼───────┼───────┤     ├───────┼───────┼───────┼───────────────────────╯
 //                         |  ./,  |   0   |   -   |     |       |       |       |
 //                         ╰───────┴───────┴───────╯     ╰───────┴───────┴───────╯
                         bindings = <
-          &rnumabr  &rnumlbr      &kp N7        &kp N8        &kp N9            &rnumrbr      &none         &none             &none         &none      &kp ESC        &none           
-          &rnumat   &rnumscol     &kp N4        &kp N5        &kp N6            &kp EQUAL     &kp BSPC      &kp RCTRL         &kp RSHFT     &kp RALT   &kp RGUI       &none
-          &rnumamp  &rnumdllr     &kp N1        &kp N2        &kp N3            &kp BSLH      &none         &none             &none         &none      &none          &none
+          &rnumabr  &rnumlbr      &rnum7        &kp N8        &kp N9            &rnumrbr      &none         &none             &none         &none      &kp ESC        &none
+          &rnumat   &rnumscol     &rnum4        &kp N5        &rnum6            &kp EQUAL     &kp BSPC      &kp RCTRL         &kp RSHFT     &kp RALT   &kp RGUI       &none
+          &none     &rnumgrv      &rnum1        &kp N2        &kp N3            &kp BSLH      &none         &none             &none         &none      &none          &none
                                             &rnumdorc &kp N0         &kp MINUS    &none         &none           &none
                         >;
                 };
