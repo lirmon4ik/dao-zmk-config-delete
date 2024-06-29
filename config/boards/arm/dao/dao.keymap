@@ -674,6 +674,15 @@
                 delay-ms = <0>;
                 trigger-period-ms = <8>;      // 16
             };
+            
+            // Safety
+            sbt: safe_bt {
+                compatible = "zmk,behavior-hold-tap";
+                flavor = "tap-preferred";
+                tapping-term-ms = <2000>;
+                #binding-cells = <2>;
+                bindings = <&btmac>, <&none>;
+            };
         };
         
         // Mouse 
@@ -730,6 +739,11 @@
                     , <&macro_param_1to2>
                     , <&bt BT_SEL MACRO_PLACEHOLDER>
                     ;
+            };
+            btmac: bt_macro {
+                compatible = "zmk,behavior-macro-one-param";
+                #binding-cells = <1>;
+                bindings = <&macro_param_1to1>, <&bt MACRO_PLACEHOLDER 0>;
             };
         };
         
@@ -898,9 +912,9 @@
 //                         |  (0)  |       |       |     |       | KRPT  |  (0)  |
 //                         ╰───────┴───────┴───────╯     ╰───────┴───────┴───────╯
                         bindings = <
-          &bootloader   &bt BT_CLR_ALL &none          &out OUT_TOG   &out OUT_BLE   &out OUT_USB   &kp C_STOP     &kp C_PP       &kp C_VOL_UP   &none          &none         &bootloader
-          &bt BT_CLR    &btsel 0       &btsel 1       &btsel 2       &btsel 3       &btsel 4       &none          &kp C_PREV     &kp C_VOL_DN   &kp C_NEXT     &kp C_AL_LOCK &none
-          &sys_reset    &bt BT_DISC 0  &bt BT_DISC 1  &bt BT_DISC 2  &bt BT_DISC 3  &bt BT_DISC 4  &none          &none          &kp C_MUTE     &none          &none         &sys_reset
+          &bootloader   &sbt BT_CLR_ALL  &none          &out OUT_TOG   &out OUT_BLE   &out OUT_USB   &kp C_STOP  &kp C_PP    &kp C_VOL_UP   &none       &none         &bootloader
+          &sbt BT_CLR   &btsel 0         &btsel 1       &btsel 2       &btsel 3       &btsel 4       &none       &kp C_PREV  &kp C_VOL_DN   &kp C_NEXT  &kp C_AL_LOCK &none
+          &sys_reset    &bt BT_DISC 0    &bt BT_DISC 1  &bt BT_DISC 2  &bt BT_DISC 3  &bt BT_DISC 4  &none       &none       &kp C_MUTE     &none       &none         &sys_reset
                                              &none         &none          &none         &none          &key_repeat   &none
                         >;
                 };
