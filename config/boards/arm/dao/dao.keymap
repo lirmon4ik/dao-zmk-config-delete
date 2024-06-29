@@ -74,6 +74,10 @@
     continue-list = <UNDERSCORE RS(MINUS) BACKSPACE DELETE>;
 };
 
+&soft_off {
+    hold-time-ms = <2000>;
+};
+
 / {
     chosen {
         zmk,matrix_transform = &default_transform;
@@ -913,14 +917,14 @@
                 media_layer {
 // ╭───────┬───────┬───────┬───────┬───────┬───────╮     ╭───────┬───────┬───────┬───────┬───────┬───────╮
 // | BOOTL |  ALL  |       |  OUT  |  BLE  |  USB  |     | STOP  |  P/P  | VOL+  |       |       | BOOTL |
-// | BTCLR |  BT0  |  BT1  |  BT2  |  BT3  |  BT4  |     |       |   <<  | VOL-  |  >>   | LOCK  |       |
+// | BTCLR |  BT0  |  BT1  |  BT2  |  BT3  |  BT4  |     |       |   <<  | VOL-  |  >>   | LOCK  | S-OFF |
 // | RESET |  DC0  |  DC1  |  DC2  |  DC3  |  DC4  |     |       |       | MUTE  |       |       | RESET |
 // ╰───────┴───────┴───────┼───────┼───────┼───────┤     ├───────┼───────┼───────┼───────────────────────╯
 //                         |  (0)  |       |       |     |       | KRPT  |  (0)  |
 //                         ╰───────┴───────┴───────╯     ╰───────┴───────┴───────╯
                         bindings = <
           &sbootldr 0 0 &sbt BT_CLR_ALL  &none          &out OUT_TOG   &out OUT_BLE   &out OUT_USB   &kp C_STOP  &kp C_PP    &kp C_VOL_UP   &none       &none         &sbootldr 0 0
-          &sbt BT_CLR   &btsel 0         &btsel 1       &btsel 2       &btsel 3       &btsel 4       &none       &kp C_PREV  &kp C_VOL_DN   &kp C_NEXT  &kp C_AL_LOCK &none
+          &sbt BT_CLR   &btsel 0         &btsel 1       &btsel 2       &btsel 3       &btsel 4       &none       &kp C_PREV  &kp C_VOL_DN   &kp C_NEXT  &kp C_AL_LOCK &soft_off
           &sys_reset    &bt BT_DISC 0    &bt BT_DISC 1  &bt BT_DISC 2  &bt BT_DISC 3  &bt BT_DISC 4  &none       &none       &kp C_MUTE     &none       &none         &sys_reset
                                              &none         &none          &none         &none          &key_repeat   &none
                         >;
