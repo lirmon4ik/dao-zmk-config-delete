@@ -818,7 +818,7 @@
           &kp LBKT  &kp Q         &kp W         &kp F         &kp P             &kp B         &kp J         &kp L            &kp U         &kp Y        &kp SQT       &kp RBKT       
           &collp    &lmt LGUI A   &lmt LALT R   &lsht LSHFT S &lmt LCTRL T      &kp G         &kp M         &rmt RCTRL N     &rsht RSHFT E &rmt RALT I  &rmt RGUI O   &colrp
           &kp GRAVE &kp Z         &kp X         &kp C         &kp D             &kp V         &kp K         &kp H            &kp COMMA     &kp DOT      &kp FSLH      &kp BSLH
-                                            &mo MED   &lt ENN BSPC   &mlt MOS RET   &lt SYE TAB   &lt NUE SPACE  &mo FUN
+                                            &lt MED DEL   &lt ENN BSPC   &mlt MOS RET   &lt SYE TAB   &lt NUE SPACE  &lt FUN ESC
                         >;
                 };
                 english_nav_layer {
@@ -878,7 +878,7 @@
           &kp GRAVE &dikw         &dsoft        &dikz         &dcomma           &ddot         &dikp         &dikd            &dikr         &dikl        &kp X         &kp I       
           &dbsoft   &mtde LGUI E  &mtdb LALT B  &mtdt LSHFT T &mtdj LCTRL J     &dikf         &dikk         &mtdy RCTRL Y    &mtdn RSHFT N &mtdc RALT C &mtdh RGUI H  &kp Q
           &kp BSLH  &dika         &dikapos      &diklbkt      &diks             &dikdot       &dikcomma     &dikv            &kp G         &kp U        &kp SEMI      &kp O
-                                            &mo MED   &lt RUN BSPC   &mlt MOS RET   &lt SYR TAB   &lt NUR SPACE   &mo FUN
+                                            &lt MED DEL   &lt RUN BSPC   &mlt MOS RET   &lt SYR TAB   &lt NUR SPACE   &lt FUN ESC
                         >;
                 };
                 russian_nav_layer {
@@ -939,7 +939,7 @@
           &kp F15   &kp F12       &kp F7        &kp F8        &kp F9            &kp PSCRN       &none       &none             &mo FN2       &none       &kp ESC        &none   
           &kp F14   &kp F11       &kp F4        &kp F5        &kp F6            &kp SLCK        &none       &kp RCTRL         &kp RSHFT     &kp RALT    &kp RGUI       &none
           &kp F13   &kp F10       &kp F1        &kp F2        &kp F3            &kp PAUSE_BREAK &none       &none             &none         &none       &none          &none
-                                            &none      &kp BSPC      &kp RET      &trans        &none           &trans
+                                            &kp DEL      &kp BSPC      &kp RET      &trans        &none           &trans
                         >;
                 };
                 function2_layer {
