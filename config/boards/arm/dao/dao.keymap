@@ -139,6 +139,14 @@
                 #binding-cells = <2>;
                 bindings = <&kp>, <&kp>;
             };
+            mlt: mouse_layer_tap {
+                compatible = "zmk,behavior-hold-tap";
+                flavor = "hold-preferred";
+                tapping-term-ms = <U_TAPPING_TERM>;
+                quick-tap-ms = <U_QUICK_TAP>;
+                #binding-cells = <2>;
+                bindings = <&mo>, <&kp>;
+            };
             
             // English layer
             collp: colemak_lpar {
@@ -793,7 +801,7 @@
           &kp LBKT  &kp Q         &kp W         &kp F         &kp P             &kp B         &kp J         &kp L            &kp U         &kp Y        &kp SQT       &kp RBKT       
           &collp    &lmt LGUI A   &lmt LALT R   &lsht LSHFT S &lmt LCTRL T      &kp G         &kp M         &rmt RCTRL N     &rsht RSHFT E &rmt RALT I  &rmt RGUI O   &colrp
           &kp GRAVE &kp Z         &kp X         &kp C         &kp D             &kp V         &kp K         &kp H            &kp COMMA     &kp DOT      &kp FSLH      &kp BSLH
-                                            &mo MED   &lt ENN BSPC   &lt MOS RET   &lt FUN TAB   &lt NUE SPACE  &mo MED
+                                            &mo MED   &lt ENN BSPC   &mlt MOS RET   &lt FUN TAB   &lt NUE SPACE  &mo MED
                         >;
                 };
                 english_nav_layer {
@@ -838,7 +846,7 @@
           &kp GRAVE &dikw         &dsoft        &dikz         &dcomma           &ddot         &dikp         &dikd            &dikr         &dikl        &kp X         &kp I       
           &dbsoft   &mtde LGUI E  &mtdb LALT B  &mtdt LSHFT T &mtdj LCTRL J     &dikf         &dikk         &mtdy RCTRL Y    &mtdn RSHFT N &mtdc RALT C &mtdh RGUI H  &kp Q
           &kp BSLH  &dika         &dikapos      &diklbkt      &diks             &dikdot       &dikcomma     &dikv            &kp G         &kp U        &kp SEMI      &kp O
-                                            &mo MED   &lt RUN BSPC   &lt MOS RET   &lt FUN TAB   &lt NUR SPACE   &mo MED
+                                            &mo MED   &lt RUN BSPC   &mlt MOS RET   &lt FUN TAB   &lt NUR SPACE   &mo MED
                         >;
                 };
                 russian_nav_layer {
