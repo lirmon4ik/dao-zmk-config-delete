@@ -22,6 +22,7 @@
 #define FMO 10
 #define SMO 11
 #define BTN 12
+#define DGR 13
 
 #define U_TO_RUS_SCUT LC(LS(N2))
 #define U_TO_ENG_SCUT LC(LS(N1))
@@ -74,10 +75,6 @@
     continue-list = <UNDERSCORE RS(MINUS) BACKSPACE DELETE>;
 };
 
-&soft_off {
-    hold-time-ms = <2000>;
-};
-
 / {
     chosen {
         zmk,matrix_transform = &default_transform;
@@ -86,6 +83,18 @@
 };
 
 / {
+        conditional_layers {
+            compatible = "zmk,conditional-layers";
+            
+            safe_layer1 {
+                if-layers = <MED MOS>;
+                then-layer = <DGR>;
+            };
+            safe_layer2 {
+                if-layers = <MED FUN>;
+                then-layer = <DGR>;
+            };
+        };
         behaviors {
             // Global
             lsht: left_shift_tap {
@@ -678,22 +687,6 @@
                 delay-ms = <0>;
                 trigger-period-ms = <8>;      // 16
             };
-            
-            // Safety
-            sbt: safe_bt {
-                compatible = "zmk,behavior-hold-tap";
-                flavor = "tap-preferred";
-                tapping-term-ms = <2000>;
-                #binding-cells = <2>;
-                bindings = <&btmac>, <&none>;
-            };
-            sbootldr: safe_bootloader {
-                compatible = "zmk,behavior-hold-tap";
-                flavor = "tap-preferred";
-                tapping-term-ms = <2000>;
-                #binding-cells = <2>;
-                bindings = <&bootloader>, <&none>;
-            };
         };
         
         // Mouse 
@@ -750,11 +743,6 @@
                     , <&macro_param_1to2>
                     , <&bt BT_SEL MACRO_PLACEHOLDER>
                     ;
-            };
-            btmac: bt_macro {
-                compatible = "zmk,behavior-macro-one-param";
-                #binding-cells = <1>;
-                bindings = <&macro_param_1to1>, <&bt MACRO_PLACEHOLDER 0>;
             };
         };
         
@@ -896,7 +884,7 @@
           &kp F15   &kp F12       &kp F7        &kp F8        &kp F9            &kp PSCRN       &none       &none             &mo FN2       &none       &kp ESC        &none   
           &kp F14   &kp F11       &kp F4        &kp F5        &kp F6            &kp SLCK        &none       &kp RCTRL         &kp RSHFT     &kp RALT    &kp RGUI       &none
           &kp F13   &kp F10       &kp F1        &kp F2        &kp F3            &kp PAUSE_BREAK &none       &none             &none         &none       &none          &none
-                                            &none      &kp BSPC      &kp RET      &none         &none           &none
+                                            &none      &kp BSPC      &kp RET      &trans        &none           &trans
                         >;
                 };
                 function2_layer {
@@ -916,17 +904,17 @@
                 };
                 media_layer {
 // ╭───────┬───────┬───────┬───────┬───────┬───────╮     ╭───────┬───────┬───────┬───────┬───────┬───────╮
-// | BOOTL |  ALL  |       |  OUT  |  BLE  |  USB  |     | STOP  |  P/P  | VOL+  |       |       | BOOTL |
-// | BTCLR |  BT0  |  BT1  |  BT2  |  BT3  |  BT4  |     |       |   <<  | VOL-  |  >>   | LOCK  | S-OFF |
-// | RESET |  DC0  |  DC1  |  DC2  |  DC3  |  DC4  |     |       |       | MUTE  |       |       | RESET |
+// |       |       |       |  OUT  |  BLE  |  USB  |     | STOP  |  P/P  | VOL+  |       |       |       |
+// |       |  BT0  |  BT1  |  BT2  |  BT3  |  BT4  |     |       |   <<  | VOL-  |  >>   | LOCK  |       |
+// |       |  DC0  |  DC1  |  DC2  |  DC3  |  DC4  |     |       |       | MUTE  |       |       |       |
 // ╰───────┴───────┴───────┼───────┼───────┼───────┤     ├───────┼───────┼───────┼───────────────────────╯
 //                         |  (0)  |       |       |     |       | KRPT  |  (0)  |
 //                         ╰───────┴───────┴───────╯     ╰───────┴───────┴───────╯
                         bindings = <
-          &sbootldr 0 0 &sbt BT_CLR_ALL  &none          &out OUT_TOG   &out OUT_BLE   &out OUT_USB   &kp C_STOP  &kp C_PP    &kp C_VOL_UP   &none       &none         &sbootldr 0 0
-          &sbt BT_CLR   &btsel 0         &btsel 1       &btsel 2       &btsel 3       &btsel 4       &none       &kp C_PREV  &kp C_VOL_DN   &kp C_NEXT  &kp C_AL_LOCK &soft_off
-          &sys_reset    &bt BT_DISC 0    &bt BT_DISC 1  &bt BT_DISC 2  &bt BT_DISC 3  &bt BT_DISC 4  &none       &none       &kp C_MUTE     &none       &none         &sys_reset
-                                             &none         &none          &none         &none          &key_repeat   &none
+          &none         &none            &none          &out OUT_TOG   &out OUT_BLE   &out OUT_USB   &kp C_STOP  &kp C_PP    &kp C_VOL_UP   &none       &none         &none
+          &none         &btsel 0         &btsel 1       &btsel 2       &btsel 3       &btsel 4       &none       &kp C_PREV  &kp C_VOL_DN   &kp C_NEXT  &kp C_AL_LOCK &none
+          &none         &bt BT_DISC 0    &bt BT_DISC 1  &bt BT_DISC 2  &bt BT_DISC 3  &bt BT_DISC 4  &none       &none       &kp C_MUTE     &none       &none         &none
+                                             &none         &none         &trans         &trans      &key_repeat   &none
                         >;
                 };
                 mouse_layer {
@@ -941,7 +929,7 @@
           &kp LC(Y)     &kp ESC        &kp LC(X)      &kp LC(C)      &kp LC(V)      &kp LC(Z)      &msc SCRL_UP     &msc SCRL_LEFT   &mmv MOVE_UP   &msc SCRL_RIGHT   &kp LC(A)      &none
           &kp LC(LS(Z)) &kp LGUI       &kp LALT       &kp LSHFT      &kp LCTRL      &mo FMO        &msc SCRL_DOWN   &mmv MOVE_LEFT   &mmv MOVE_DOWN &mmv MOVE_RIGHT   &kp DEL        &none
           &none         &none          &none          &none          &none          &mo SMO        &none            &mkp MB4         &mkp MB5       &none             &none          &none
-                                             &none         &none          &none         &mkp RCLK      &mkp LCLK     &mkp MCLK
+                                             &trans        &none          &trans        &mkp RCLK      &mkp LCLK     &mkp MCLK
                         >;
                 };
                 fast_mouse_layer {
@@ -987,6 +975,21 @@
           &kp LC(LS(Z)) &kp LGUI      &kp LALT      &kp LSHFT     &kp LCTRL     &tog BTN      &none           &none           &none          &none            &none         &none
           &none         &none         &none         &none         &kp DEL       &kp LC(A)     &none           &none           &none          &none            &none         &none
                                                     &mkp MCLK     &mkp LCLK     &mkp RCLK     &none           &none           &none
+                        >;
+                };
+                danger_layer {
+// ╭───────┬───────┬───────┬───────┬───────┬───────╮     ╭───────┬───────┬───────┬───────┬───────┬───────╮
+// | BOOTL | BTALL |       |       |       |       |     |       |       |       |       |       | BOOTL |
+// | BTCLR |       |       |       |       |       |     |       |       |       |       |       | S-OFF |
+// | RESET |       |       |       |       |       |     |       |       |       |       |       | RESET |
+// ╰───────┴───────┴───────┼───────┼───────┼───────┤     ├───────┼───────┼───────┼───────────────────────╯
+//                         |       |       |       |     |       |       |       |
+//                         ╰───────┴───────┴───────╯     ╰───────┴───────┴───────╯
+                        bindings = <
+          &bootloader   &bt BT_CLR_ALL &none         &none         &none         &none         &none           &none           &none          &none            &none         &bootloader
+          &bt BT_CLR    &none          &none         &none         &none         &none         &none           &none           &none          &none            &none         &soft_off
+          &sys_reset    &none          &none         &none         &none         &none         &none           &none           &none          &none            &none         &sys_reset
+                                                     &trans        &none         &trans        &trans          &none           &trans
                         >;
                 };
         };
