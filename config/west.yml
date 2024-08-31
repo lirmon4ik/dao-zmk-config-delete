@@ -4,10 +4,15 @@ manifest:
       url-base: https://github.com/urob
     - name: petejohanson
       url-base: https://github.com/petejohanson
+    - name: ssbb
+      url-base: https://github.com/ssbb
   projects:
     - name: zmk
       remote: petejohanson
       revision: feat/pointers-move-scroll
       import: app/west.yml
+    - name: zmk-antecedent-morph
+      remote: ssbb
+      revision: main
   self:
     path: config

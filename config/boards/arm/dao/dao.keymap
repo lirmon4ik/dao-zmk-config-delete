@@ -30,9 +30,11 @@
 #define U_TO_RUS_SCUT LC(LS(N2))
 #define U_TO_ENG_SCUT LC(LS(N1))
 
-#define U_TAPPING_TERM 280
+#define U_TAPPING_TERM 300
 #define U_QUICK_TAP 0
 #define U_STREAK_DECAY 150
+#define U_COMBO_TIMEOUT 75
+#define U_COMBO_STREAK_DECAY 300
 
 #define LEFT_HAND_KEYS   \
      0  1  2  3  4  5    \
@@ -163,6 +165,56 @@
                 quick-tap-ms = <U_QUICK_TAP>;
                 #binding-cells = <2>;
                 bindings = <&mo>, <&kp>;
+            };
+            
+            altrep: alternative_repeat {
+                compatible = "zmk,behavior-antecedent-morph";
+                label = "ALTERNATIVE_REPEAT";
+                #binding-cells = <0>;
+                defaults = <&none>;
+                bindings = <&kp C>, <&kp COMMA>, <&kp E>, <&kp T>, <&kp DOT>,
+                           <&kp EQUAL>, <&kp EQUAL>, <&kp EQUAL>, <&kp EQUAL>, <&kp EQUAL>, <&kp EQUAL>, <&kp EQUAL>, <&kp EQUAL>, <&kp EQUAL>, <&kp EQUAL>, <&kp EQUAL>,
+                           <&kp RIGHT_BRACKET>, <&kp RIGHT_BRACE>, <&kp RIGHT_PARENTHESIS>;
+                antecedents = <S E U P Y
+                               PLUS MINUS EXCLAMATION ASTERISK SLASH COMMA DOT PIPE PERCENT CARET AMPERSAND
+                               LEFT_BRACKET LEFT_BRACE LEFT_PARENTHESIS>;
+                max-delay-ms = <1000>;
+            };
+            alt1: alternative_1 {
+                compatible = "zmk,behavior-antecedent-morph";
+                label = "ALTERNATIVE_1";
+                #binding-cells = <0>;
+                defaults = <&none>;
+                bindings = <&alt_class>;
+                antecedents = <C>;
+                max-delay-ms = <1000>;
+            };
+            alt2: alternative_2 {
+                compatible = "zmk,behavior-antecedent-morph";
+                label = "ALTERNATIVE_2";
+                #binding-cells = <0>;
+                defaults = <&none>;
+                bindings = <&alt_case>;
+                antecedents = <C>;
+                max-delay-ms = <1000>;
+            };
+            alt3: alternative_3 {
+                compatible = "zmk,behavior-antecedent-morph";
+                label = "ALTERNATIVE_3";
+                #binding-cells = <0>;
+                defaults = <&none>;
+                bindings = <&alt_continue>;
+                antecedents = <C>;
+                max-delay-ms = <1000>;
+            };
+            alt4: alternative_4 {
+                compatible = "zmk,behavior-antecedent-morph";
+                label = "ALTERNATIVE_4";
+                #binding-cells = <0>;
+                defaults = <&none>;
+                bindings = <&alt_const>;
+                antecedents = <C>;
+                max-delay-ms = <1000>;
             };
             
             // English layer
@@ -769,37 +821,70 @@
                     , <&bt BT_SEL MACRO_PLACEHOLDER>
                     ;
             };
+            
+            ZMK_MACRO(alt_class,
+                wait-ms = <20>;
+                tap-ms = <5>;
+                bindings = <&kp L &kp A &kp S &kp S &kp SPACE>;
+            )
+            ZMK_MACRO(alt_case,
+                wait-ms = <20>;
+                tap-ms = <5>;
+                bindings = <&kp A &kp S &kp E &kp SPACE>;
+            )
+            ZMK_MACRO(alt_continue,
+                wait-ms = <20>;
+                tap-ms = <5>;
+                bindings = <&kp O &kp N &kp T &kp I &kp N &kp U &kp E &kp SEMI>;
+            )
+            ZMK_MACRO(alt_const,
+                wait-ms = <20>;
+                tap-ms = <5>;
+                bindings = <&kp O &kp N &kp S &kp T>;
+            )
         };
         
         combos {
             compatible = "zmk,combos";
             combo_force_rus {
-                timeout-ms = <50>;
+                timeout-ms = <U_COMBO_TIMEOUT>;
                 key-positions = <5 6>;
                 layers = <RUS>;
                 bindings = <&kp U_TO_RUS_SCUT>;
-                require-prior-idle-ms = <300>;
+                require-prior-idle-ms = <U_COMBO_STREAK_DECAY>;
             };
             combo_force_eng {
-                timeout-ms = <50>;
+                timeout-ms = <U_COMBO_TIMEOUT>;
                 key-positions = <5 6>;
                 layers = <ENG>;
                 bindings = <&kp U_TO_ENG_SCUT>;
-                require-prior-idle-ms = <300>;
+                require-prior-idle-ms = <U_COMBO_STREAK_DECAY>;
             };
             combo_switch_to_rus {
-                timeout-ms = <50>;
+                timeout-ms = <U_COMBO_TIMEOUT>;
                 key-positions = <38 39>;
                 layers = <ENG>;
                 bindings = <&to_russian>;
-                require-prior-idle-ms = <300>;
+                require-prior-idle-ms = <U_COMBO_STREAK_DECAY>;
             };
             combo_switch_to_eng {
-                timeout-ms = <50>;
+                timeout-ms = <U_COMBO_TIMEOUT>;
                 key-positions = <38 39>;
                 layers = <RUS>;
                 bindings = <&to_english>;
-                require-prior-idle-ms = <300>;
+                require-prior-idle-ms = <U_COMBO_STREAK_DECAY>;
+            };
+            combo_key_repeat {
+                timeout-ms = <U_COMBO_TIMEOUT>;
+                key-positions = <17 18>;
+                bindings = <&key_repeat>;
+                require-prior-idle-ms = <U_COMBO_STREAK_DECAY>;
+            };
+            combo_caps_word {
+                timeout-ms = <U_COMBO_TIMEOUT>;
+                key-positions = <16 19>;
+                bindings = <&caps_word>;
+                require-prior-idle-ms = <U_COMBO_STREAK_DECAY>;
             };
         };
 
@@ -808,16 +893,16 @@
 
                 english_layer {
 // ╭───────┬───────┬───────┬───────┬───────┬───────╮     ╭───────┬───────┬───────┬───────┬───────┬───────╮
-// |   [   |   Q   |   W   |   F   |   P   |   B   |     |   J   |   L   |   U   |   Y   |   "   |   ]   |
-// |  (/;  |   A   |   R   |   S   |   T   |   G   |     |   M   |   N   |   E   |   I   |   O   |  )/:  |
-// |   `   |   Z   |   X   |   C   |   D   |   V   |     |   K   |   H   |   ,   |   .   |   /   |   \   |
+// | ALT1  |   Q   |   W   |   F   |   P   |   B   |     |   J   |   L   |   U   |   Y   |   "   |  ALT2 |
+// | LEADR |   A   |   R   |   S   |   T   |   G   |     |   M   |   N   |   E   |   I   |   O   | ALTRT |
+// | ALT3  |   Z   |   X   |   C   |   D   |   V   |     |   K   |   H   |   ,   |   .   |   /   |  ALT4 |
 // ╰───────┴───────┴───────┼───────┼───────┼───────┤     ├───────┼───────┼───────┼───────────────────────╯
-//                         |  MED  |  BKSP |  RET  |     |  TAB  | SPACE |  FUN  |
+//                         |  DEL  |  BKSP |  RET  |     |  TAB  | SPACE |  ESC  |
 //                         ╰───────┴───────┴───────╯     ╰───────┴───────┴───────╯
                         bindings = <
-          &kp LBKT  &kp Q         &kp W         &kp F         &kp P             &kp B         &kp J         &kp L            &kp U         &kp Y        &kp SQT       &kp RBKT       
-          &collp    &lmt LGUI A   &lmt LALT R   &lsht LSHFT S &lmt LCTRL T      &kp G         &kp M         &rmt RCTRL N     &rsht RSHFT E &rmt RALT I  &rmt RGUI O   &colrp
-          &kp GRAVE &kp Z         &kp X         &kp C         &kp D             &kp V         &kp K         &kp H            &kp COMMA     &kp DOT      &kp FSLH      &kp BSLH
+          &alt1     &kp Q         &kp W         &kp F         &kp P             &kp B         &kp J         &kp L            &kp U         &kp Y        &kp SQT       &alt2       
+          &none     &lmt LGUI A   &lmt LALT R   &lsht LSHFT S &lmt LCTRL T      &kp G         &kp M         &rmt RCTRL N     &rsht RSHFT E &rmt RALT I  &rmt RGUI O   &altrep
+          &alt3     &kp Z         &kp X         &kp C         &kp D             &kp V         &kp K         &kp H            &kp COMMA     &kp DOT      &kp FSLH      &alt4
                                             &lt MED DEL   &lt ENN BSPC   &mlt MOS RET   &lt SYE TAB   &lt NUE SPACE  &lt FUN ESC
                         >;
                 };
@@ -869,15 +954,15 @@
                 russian_layer {
 // ╭───────┬───────┬───────┬───────┬───────┬───────╮     ╭───────┬───────┬───────┬───────┬───────┬───────╮
 // |   Ё   |   Ц   |  ь/ъ  |   Я   |  ,/?  |  ./!  |     |   З   |   В   |   К   |   Д   |   Ч   |   Ш   |
-// |  Ь/Ъ  |   У   |   И   |   Е   |   О   |   А   |     |   Л   |   Н   |   Т   |   С   |   Р   |   Й   |
-// |   \   |   Ф   |   Э   |   Х   |   Ы   |   Ю   |     |   Б   |   М   |   П   |   Г   |   Ж   |   Щ   |
+// | LEADR |   У   |   И   |   Е   |   О   |   А   |     |   Л   |   Н   |   Т   |   С   |   Р   |   Й   |
+// |  Ь/Ъ  |   Ф   |   Э   |   Х   |   Ы   |   Ю   |     |   Б   |   М   |   П   |   Г   |   Ж   |   Щ   |
 // ╰───────┴───────┴───────┼───────┼───────┼───────┤     ├───────┼───────┼───────┼───────────────────────╯
-//                         |  MED  |  BKSP |  RET  |     |  TAB  | SPACE |  FUN  |
+//                         |  DEL  |  BKSP |  RET  |     |  TAB  | SPACE |  ESC  |
 //                         ╰───────┴───────┴───────╯     ╰───────┴───────┴───────╯
                         bindings = <
           &kp GRAVE &dikw         &dsoft        &dikz         &dcomma           &ddot         &dikp         &dikd            &dikr         &dikl        &kp X         &kp I       
-          &dbsoft   &mtde LGUI E  &mtdb LALT B  &mtdt LSHFT T &mtdj LCTRL J     &dikf         &dikk         &mtdy RCTRL Y    &mtdn RSHFT N &mtdc RALT C &mtdh RGUI H  &kp Q
-          &kp BSLH  &dika         &dikapos      &diklbkt      &diks             &dikdot       &dikcomma     &dikv            &kp G         &kp U        &kp SEMI      &kp O
+          &none     &mtde LGUI E  &mtdb LALT B  &mtdt LSHFT T &mtdj LCTRL J     &dikf         &dikk         &mtdy RCTRL Y    &mtdn RSHFT N &mtdc RALT C &mtdh RGUI H  &kp Q
+          &dbsoft   &dika         &dikapos      &diklbkt      &diks             &dikdot       &dikcomma     &dikv            &kp G         &kp U        &kp SEMI      &kp O
                                             &lt MED DEL   &lt RUN BSPC   &mlt MOS RET   &lt SYR TAB   &lt NUR SPACE   &lt FUN ESC
                         >;
                 };
