@@ -877,12 +877,14 @@
             combo_key_repeat {
                 timeout-ms = <U_COMBO_TIMEOUT>;
                 key-positions = <17 18>;
+                layers = <ENG RUS>;
                 bindings = <&key_repeat>;
                 require-prior-idle-ms = <U_COMBO_STREAK_DECAY>;
             };
             combo_caps_word {
                 timeout-ms = <U_COMBO_TIMEOUT>;
                 key-positions = <16 19>;
+                layers = <ENG RUS>;
                 bindings = <&caps_word>;
                 require-prior-idle-ms = <U_COMBO_STREAK_DECAY>;
             };
