@@ -11,7 +11,13 @@ manifest:
       remote: petejohanson
       revision: feat/pointers-move-scroll
       import: app/west.yml
+    - name: dao-zmk-module
+      remote: proostas
+      revision: main
     - name: zmk-antecedent-morph
+      remote: proostas
+      revision: main
+    - name: colemator-layout-zmk-module
       remote: proostas
       revision: main
   self:
